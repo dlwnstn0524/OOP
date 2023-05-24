@@ -16,11 +16,11 @@ public class Test3
 	      lm.add(new Manager("Yang Manchun", 80000, 2000, 1, 15));
 	      lm.add(new Manager("Lee Sunshin", 100000, 1989, 1,1));
 	
-          //printEmployee(lm);
+          printEmployee(lm);
      }
        
 
-     public static void printEmployee(ArrayList<Employee> le)
+     public static void printEmployee(ArrayList<? extends Employee> le)
      {
      	 for(Employee e : le)
               System.out.println(e);

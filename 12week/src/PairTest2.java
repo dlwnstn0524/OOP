@@ -13,11 +13,23 @@ public class PairTest2
 	 
 	  changePartner(p, e3);
 	  System.out.println("First = "+p.getFirst());
-	  System.out.println("Second = "+p.getSecond()); 
-     }
-   
-     public static void changePartner(Pair<Employee> p, Employee e)
-     {
-   	  p.setSecond(e);
-     }
+	  System.out.println("Second = "+p.getSecond());
+		 Manager m1 = new Manager("Gang Gamchan", 75000, 2007, 12, 15);
+		 Manager m2 = new Manager("Yang Manchun", 80000, 2000, 1, 15);
+		 Pair<Manager> p2 = new Pair<>(m1,m2);
+		 System.out.println("First = " + p2.getFirst());
+		 System.out.println("Second = " + p2.getSecond());
+
+		 Manager m = new Manager("Lee Sunshin", 100000, 1989, 1,1);
+
+		 changePartner(p2, m);
+		 System.out.println("First = " + p2.getFirst());
+		 System.out.println("Second = " + p2.getSecond());
+	 }
+
+	public static <T extends Employee>void changePartner(Pair<T> p, T e)
+	{
+		p.setSecond(e);
+	}
+
 }
