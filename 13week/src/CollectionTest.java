@@ -7,38 +7,82 @@ public class CollectionTest
    public static void main(String[] args)
    {
       // add elements in colors array to list
-      String[] colors = {"MAGENTA", "RED", "WHITE", "BLUE", "CYAN"};
-      List<String> list = new LinkedList<>();
+      String[] colors = {"MAGENTA", "RED", "WHITE", "BLUE", "CYAN", "RED", "CYAN", "RED", "BLUE"};
+      LinkedList<String> list = new LinkedList<String>();
 
-      for (String color : colors)
-         list.add(color); // adds color to end of list      
-
-      // add elements in removeColors array to removeList
-      String[] removeColors = {"RED", "WHITE", "BLUE"};
-      List<String> removeList = new LinkedList<String>();
-
-      for (String color : removeColors)
-         removeList.add(color); 
+      makeList(list, colors); // 2-가
 
       // output list contents
-      System.out.println("ArrayList: ");
-      // (가) 기존 코드
-//      for (int count = 0; count < list.size(); count++)
-//         System.out.printf("%s ", list.get(count));
-      // 1- (가) 답안
-      Iterator<String> iter = list.iterator();
-      while(iter.hasNext()){
-         System.out.printf("%s ", iter.next());
-      }
-      // remove from list the colors contained in removeList
-      removeColors(list, removeList);
-
-      // output list contents
-      System.out.printf("%n%nArrayList after calling removeColors:%n");
-
+      System.out.printf("%n%nOriginal colors:%n");
       for (String color : list)
          System.out.printf("%s ", color);
-   } 
+
+      // get duplicates
+      List<String> list2 = removeDuplicates(list);
+
+      // output list contents
+      System.out.printf("%n%nDuplicate-removed colors:%n");
+      for (String color : list)
+         System.out.printf("%s ", color);
+
+      // output list contents
+      System.out.printf("%n%nDuplicated colors:%n");
+      for (String color : list2)
+         System.out.printf("%s ", color);
+
+      //2-(라) 정답 코드
+      list2.sort(Comparator.reverseOrder());
+
+      System.out.printf("%n%nSorted colors:%n");
+      for (String color : list2)
+         System.out.printf("%s ", color);
+   }
+
+   // 2-(가)
+   private static void makeList(LinkedList<String> list, String[] colors) {
+      ListIterator iter = list.listIterator();
+      for(String color : colors){
+         iter.add(color);
+      }
+   }
+
+   //2-(나) 정답 코드
+//   private static LinkedList<String> removeDuplicates(LinkedList<String> list) {
+//      Iterator<String> iter = list.iterator();
+//      List<String> list2 = new LinkedList<String>(); // new LinkedList<>(); 도 OK
+//      LinkedList<String> list3 = new LinkedList<String>();
+//      while(iter.hasNext())
+//      {
+//         String s = iter.next();
+//         if(list2.contains(s))
+//         {
+//            iter.remove();
+//            if(!list3.contains(s))
+//               list3.add(s);
+//         }
+//         list2.add(s);
+//      }
+//      return  list3;
+//   }
+
+   //2-(다) 정답 코드
+   private static <T> LinkedList<T> removeDuplicates(LinkedList<T> list){
+      Iterator<T> iter = list.iterator();
+      List<T> list2 = new LinkedList<>(); // new LinkedList<>(); 도 OK
+      LinkedList<T> list3 = new LinkedList<>();
+      while(iter.hasNext())
+      {
+         T s = iter.next();
+         if(list2.contains(s))
+         {
+            iter.remove();
+            if(!list3.contains(s))
+               list3.add(s);
+         }
+         list2.add(s);
+      }
+      return  list3;
+   }
 
    // remove colors specified in collection2 from collection1
    private static void removeColors(Collection<String> collection1, 
@@ -55,18 +99,3 @@ public class CollectionTest
       } 
    } 
 } // end class CollectionTest
-
-/**************************************************************************
- * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
- * Pearson Education, Inc. All Rights Reserved.                           *
- *                                                                        *
- * DISCLAIMER: The authors and publisher of this book have used their     *
- * best efforts in preparing the book. These efforts include the          *
- * development, research, and testing of the theories and programs        *
- * to determine their effectiveness. The authors and publisher make       *
- * no warranty of any kind, expressed or implied, with regard to these    *
- * programs or to the documentation contained in these books. The authors *
- * and publisher shall not be liable in any event for incidental or       *
- * consequential damages in connection with, or arising out of, the       *
- * furnishing, performance, or use of these programs.                     *
- *************************************************************************/
